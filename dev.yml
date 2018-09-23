@@ -1,5 +1,6 @@
 up: 
   - ruby: 2.5.0 
+  - bundler
   - node:
       version: v10.11.0
       packages: []
