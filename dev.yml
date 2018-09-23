@@ -1,0 +1,11 @@
+up: 
+  - ruby: 2.5.0 
+  - node:
+      version: v10.11.0
+      packages: []
+
+commands:
+  server:  'npm run start'
+  console: false
+  test:    'npm run test'
+  build:   false
