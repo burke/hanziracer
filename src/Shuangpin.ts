@@ -13,6 +13,11 @@ class Shuangpin {
     }
 
     public static shuang2pinWithToneOrEmpty(code: string) {
+        if (code.length === 1) {
+            return initials[code[0]] + "__";
+        } else if (code.length === 2) {
+            return this.shuang2pin(code);
+        }
         try {
             return this.shuang2pinWithTone(code);
         }
