@@ -24,11 +24,13 @@ class Hello extends React.Component<IProps, IState> {
     public render() {
         return (
             <div className="hello">
-                <input 
-                    onChange={this.handleChange} 
-                    value={this.state.data}
-                 />
-                <p>{Shuangpin.shuang2pinWithToneOrEmpty(this.state.data)}</p>
+                <p>
+                    <input 
+                        onChange={this.handleChange} 
+                        value={this.state.data}
+                     />
+                    <span>{Shuangpin.shuang2pinWithToneOrEmpty(this.state.data)}</span>
+                </p>
                 <p>{this.state.hanzi}</p>
             </div>            
         );
@@ -41,9 +43,11 @@ class Hello extends React.Component<IProps, IState> {
             if (py === this.state.pinyin) {
                 const hanzi = this.randomProperty(Hanzi);
                 const pinyin = Hanzi[hanzi];
-                this.setState({hanzi, pinyin});
+                const data = "";
+                this.setState({hanzi, pinyin, data});
+            } else {
+                this.setState({data: event.target.value});
             }
-            this.setState({data: event.target.value});
         }
     }
 
