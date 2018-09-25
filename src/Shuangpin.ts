@@ -11,7 +11,7 @@ class Shuangpin {
             (pinyinFinal: string) => (pinyinInitial + pinyinFinal).toLowerCase()
         ).join("/");
     }
-
+    
     public static shuang2pinWithToneOrEmpty(code: string) {
         if (code.length === 1) {
             return initials[code[0]] + "__";
@@ -50,6 +50,16 @@ class Shuangpin {
                 return pinyinInitial + tonalized;
             }
         ).join("/");
+    }
+
+    public static toneFromPinyin(py: string) {
+        for (const char of py) {
+            const tone = toneFromPinyin[char];
+            if (!isUndefined(tone)) {
+                return tone;
+            }
+        }
+        return 5;
     }
 }
 
@@ -90,6 +100,39 @@ const tones = {
     "U": ["ū", "ú", "ǔ", "ù", "u"],
     "Ü": ["ǖ", "ǘ", "ǚ", "ǜ", "ü"],
 }
+
+const toneFromPinyin = {
+    "à": 4,
+    "á": 2,
+    "ǎ": 3,
+
+    "è": 4,
+    "é": 2,
+    "ě": 3,
+
+    "ì": 4,
+    "í": 2,
+    "ǐ": 3,
+
+    "ò": 4,
+    "ó": 2,
+    "ǒ": 3,
+
+    "ù": 4,
+    "ú": 2,
+    "ǔ": 3,
+
+    "ā": 1,
+    "ē": 1,
+    "ī": 1,
+    "ō": 1,
+    "ū": 1,
+    "ǖ": 1,
+    "ǘ": 2,
+    "ǚ": 3,
+    "ǜ": 4,
+}
+
 
 const finals = {
     ";": ["Ing"],

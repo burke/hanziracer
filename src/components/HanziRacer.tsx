@@ -9,29 +9,28 @@ export interface IProps {
 interface IState {
     data: string;
     hanzi: string;
-    pinyin: string;
+    history: string[];
 }
 
-class Hello extends React.Component<IProps, IState> {
+class HanziRacer extends React.Component<IProps, IState> {
     constructor(props: IProps) {
         super(props);
         const hanzi = this.randomProperty(Hanzi);
-        const pinyin = Hanzi[hanzi];
         const data = "";
-        this.state = { data, hanzi, pinyin };
+        this.state = { data, hanzi, history: [] };
     }
-
+ 
     public render() {
         return (
             <div className="hello">
-                <p>
-                    <input 
-                        onChange={this.handleChange} 
-                        value={this.state.data}
-                     />
+                <div>
+                    <input onChange={this.handleChange} value={this.state.data} />
                     <span>{Shuangpin.shuang2pinWithToneOrEmpty(this.state.data)}</span>
-                </p>
-                <p>{this.state.hanzi}</p>
+                </div>
+                <div>
+                    {this.state.history.map((a,b) => <span key={a} className={this.toneClass(a)}>{a}</span>)}
+                    <span>{this.state.hanzi}</span>
+                </div>
             </div>            
         );
     }
@@ -40,15 +39,22 @@ class Hello extends React.Component<IProps, IState> {
         const pyspec = Shuangpin.shuang2pinWithToneOrEmpty(event.target.value);
         const pys = pyspec.split("/");
         for (const py of pys) {
-            if (py === this.state.pinyin) {
+            if (py === Hanzi[this.state.hanzi]) {
                 const hanzi = this.randomProperty(Hanzi);
-                const pinyin = Hanzi[hanzi];
                 const data = "";
-                this.setState({hanzi, pinyin, data});
+                const history = this.state.history;
+                history.push(this.state.hanzi);
+                this.setState({hanzi, data, history});
+                break;
             } else {
                 this.setState({data: event.target.value});
             }
         }
+    }
+    private toneClass = (hanzi: string) => {
+        const py = Hanzi[hanzi];
+        const tone = Shuangpin.toneFromPinyin(py);
+        return "tone"+tone;
     }
 
     private randomProperty = (obj: object) => {
@@ -59,4 +65,4 @@ class Hello extends React.Component<IProps, IState> {
     }
 }
 
-export default Hello;
+export default HanziRacer;

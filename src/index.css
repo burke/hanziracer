@@ -12,3 +12,11 @@ input {
   width: 3em;
   /* display: none; */
 }
+
+.tone1 { color: rgb(227, 0, 0); }
+.tone2 { color: rgb(2, 179, 28); }
+.tone3 { color: rgb(21, 16, 240); }
+.tone4 { color: rgb(137, 0, 191); }
+.tone5 { color: rgb(119, 119, 119); }
+
+.wrong { background-color: red; color: white; }
